@@ -1,4 +1,4 @@
-package studentManagement;
+package org.example.studentManagement;
 
 import org.example.inputManagement.InputCollector;
 

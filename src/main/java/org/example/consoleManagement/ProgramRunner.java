@@ -1,7 +1,7 @@
 package org.example.consoleManagement;
 
-import studentManagement.StudentDisplay;
-import studentManagement.StudentModification;
+import org.example.studentManagement.StudentDisplay;
+import org.example.studentManagement.StudentModification;
 import org.example.inputManagement.InputCollection;
 
 import java.util.Scanner;

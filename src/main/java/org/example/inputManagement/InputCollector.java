@@ -1,6 +1,6 @@
 package org.example.inputManagement;
 
-import studentManagement.StudentManager;
+import org.example.studentManagement.StudentManager;
 
 import java.util.Scanner;
 

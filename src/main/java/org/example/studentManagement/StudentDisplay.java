@@ -1,4 +1,4 @@
-package studentManagement;
+package org.example.studentManagement;
 
 public interface StudentDisplay {
     void getSortedStudents();
