@@ -97,7 +97,7 @@ public class InputCollector implements InputCollection, InputValidation {
     }
 
     private boolean isGradeInRange(int grade) {
-        return grade > MINIMUM_GRADE && grade < MAX_GRADE;
+        return grade >= MINIMUM_GRADE && grade <= MAX_GRADE;
     }
 
     private boolean idExists(int id) {
