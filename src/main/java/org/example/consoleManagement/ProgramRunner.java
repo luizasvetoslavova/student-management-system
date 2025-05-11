@@ -3,7 +3,6 @@ package org.example.consoleManagement;
 import studentManagement.StudentDisplay;
 import studentManagement.StudentModification;
 import org.example.inputManagement.InputCollection;
-import org.example.inputManagement.InputCollector;
 
 import java.util.Scanner;
 
@@ -14,11 +13,11 @@ public class ProgramRunner {
     private final Scanner scanner;
 
     public ProgramRunner(StudentModification studentModification, StudentDisplay studentDisplay,
-                         InputCollection inputCollection) {
+                         InputCollection inputCollection, Scanner scanner) {
         this.studentModification = studentModification;
         this.studentDisplay = studentDisplay;
         this.inputCollection = inputCollection;
-        scanner = InputCollector.getScanner();
+        this.scanner = scanner;
     }
 
     public void run() {

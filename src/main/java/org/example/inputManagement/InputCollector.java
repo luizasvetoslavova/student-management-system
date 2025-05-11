@@ -5,17 +5,19 @@ import studentManagement.StudentManager;
 import java.util.Scanner;
 
 public class InputCollector implements InputCollection, InputValidation {
-    private static InputCollector instance;
+    private static final int MINIMUM_GRADE = 1;
+    private static final int MAX_GRADE = 12;
     private static final StudentManager studentManager = StudentManager.getInstance();
-    private static Scanner scanner;
+    private static InputCollector instance;
+    private final Scanner scanner;
 
     public static InputCollector getInstance() {
-        if(instance == null) instance = new InputCollector();
+        if (instance == null) instance = new InputCollector();
         return instance;
     }
 
     private InputCollector() {
-        scanner = new Scanner(System.in);
+        this.scanner = new Scanner(System.in);
     }
 
     @Override
@@ -29,7 +31,7 @@ public class InputCollector implements InputCollection, InputValidation {
         System.out.print("Student id: ");
         String idAsText = scanner.nextLine();
 
-        while(!isIdValid(idAsText) || idExists(Integer.parseInt(idAsText))) {
+        while (!isIdValid(idAsText) || idExists(Integer.parseInt(idAsText))) {
             System.out.print("Wrong id, please try again: ");
             idAsText = scanner.nextLine();
         }
@@ -42,7 +44,7 @@ public class InputCollector implements InputCollection, InputValidation {
         System.out.print("Student id: ");
         String idAsText = scanner.nextLine();
 
-        while(!isIdValid(idAsText) || !idExists(Integer.parseInt(idAsText))) {
+        while (!isIdValid(idAsText) || !idExists(Integer.parseInt(idAsText))) {
             System.out.print("Wrong id, please try again: ");
             idAsText = scanner.nextLine();
         }
@@ -61,7 +63,7 @@ public class InputCollector implements InputCollection, InputValidation {
         System.out.print("Student grade: ");
         String gradeAsText = scanner.nextLine();
 
-        while(!isGradeValid(gradeAsText)) {
+        while (!isGradeValid(gradeAsText)) {
             System.out.print("Wrong grade, please try again: ");
             gradeAsText = scanner.nextLine();
         }
@@ -95,14 +97,10 @@ public class InputCollector implements InputCollection, InputValidation {
     }
 
     private boolean isGradeInRange(int grade) {
-        return grade > 0 && grade < 13;
+        return grade > MINIMUM_GRADE && grade < MAX_GRADE;
     }
 
     private boolean idExists(int id) {
         return studentManager.getStudents().stream().anyMatch(student -> student.getId() == id);
-    }
-
-    public static Scanner getScanner() {
-        return scanner;
     }
 }
