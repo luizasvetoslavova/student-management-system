@@ -1,19 +1,23 @@
-package org.example;
+package org.example.inputManagement;
+
+import org.example.studentManagement.StudentManager;
 
 import java.util.Scanner;
 
-public class InputManager implements InputManagement, Validation {
-    private static InputManagement instance;
+public class InputCollector implements InputCollection, InputValidation {
+    private static final int MINIMUM_GRADE = 1;
+    private static final int MAX_GRADE = 12;
     private static final StudentManager studentManager = StudentManager.getInstance();
-    private static Scanner scanner;
+    private static InputCollector instance;
+    private final Scanner scanner;
 
-    public static InputManagement getInstance() {
-        if(instance == null) instance = new InputManager();
+    public static InputCollector getInstance() {
+        if (instance == null) instance = new InputCollector();
         return instance;
     }
 
-    private InputManager() {
-        scanner = new Scanner(System.in);
+    private InputCollector() {
+        this.scanner = new Scanner(System.in);
     }
 
     @Override
@@ -27,7 +31,7 @@ public class InputManager implements InputManagement, Validation {
         System.out.print("Student id: ");
         String idAsText = scanner.nextLine();
 
-        while(!isIdValid(idAsText) || idExists(Integer.parseInt(idAsText))) {
+        while (!isIdValid(idAsText) || idExists(Integer.parseInt(idAsText))) {
             System.out.print("Wrong id, please try again: ");
             idAsText = scanner.nextLine();
         }
@@ -40,7 +44,7 @@ public class InputManager implements InputManagement, Validation {
         System.out.print("Student id: ");
         String idAsText = scanner.nextLine();
 
-        while(!isIdValid(idAsText) || !idExists(Integer.parseInt(idAsText))) {
+        while (!isIdValid(idAsText) || !idExists(Integer.parseInt(idAsText))) {
             System.out.print("Wrong id, please try again: ");
             idAsText = scanner.nextLine();
         }
@@ -49,11 +53,17 @@ public class InputManager implements InputManagement, Validation {
     }
 
     @Override
+    public int getIdToSearch() {
+        //same logic, different name for clarity
+        return getIdToRemove();
+    }
+
+    @Override
     public int getGrade() {
         System.out.print("Student grade: ");
         String gradeAsText = scanner.nextLine();
 
-        while(!isGradeValid(gradeAsText)) {
+        while (!isGradeValid(gradeAsText)) {
             System.out.print("Wrong grade, please try again: ");
             gradeAsText = scanner.nextLine();
         }
@@ -87,14 +97,10 @@ public class InputManager implements InputManagement, Validation {
     }
 
     private boolean isGradeInRange(int grade) {
-        return grade > 0 && grade < 13;
+        return grade >= MINIMUM_GRADE && grade <= MAX_GRADE;
     }
 
     private boolean idExists(int id) {
         return studentManager.getStudents().stream().anyMatch(student -> student.getId() == id);
-    }
-
-    public static Scanner getScanner() {
-        return scanner;
     }
 }

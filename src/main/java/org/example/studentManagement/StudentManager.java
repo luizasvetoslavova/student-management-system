@@ -1,16 +1,18 @@
-package org.example;
+package org.example.studentManagement;
+
+import org.example.inputManagement.InputCollector;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class StudentManager implements StudentManagement {
+public class StudentManager implements StudentModification, StudentDisplay {
     private static StudentManager instance;
-    private static final InputManagement inputManagement = InputManager.getInstance();
+    private static final InputCollector inputCollector = InputCollector.getInstance();
     private static List<Student> students;
 
     public static StudentManager getInstance() {
-        if(instance == null) instance = new StudentManager();
+        if (instance == null) instance = new StudentManager();
         return instance;
     }
 
@@ -20,7 +22,7 @@ public class StudentManager implements StudentManagement {
 
     @Override
     public void addNewStudent() {
-        students.add(new Student(inputManagement.getName(), inputManagement.getIdToAdd(), inputManagement.getGrade()));
+        students.add(new Student(inputCollector.getName(), inputCollector.getIdToAdd(), inputCollector.getGrade()));
         System.out.println("New student added!");
     }
 
@@ -29,7 +31,7 @@ public class StudentManager implements StudentManagement {
         Student toBeRemoved = students.stream()
                 .filter(student -> student.getId() == id).findFirst().orElse(null);
 
-        if(toBeRemoved == null) {
+        if (toBeRemoved == null) {
             System.out.println("No such id.");
             return;
         }
@@ -39,10 +41,10 @@ public class StudentManager implements StudentManagement {
     }
 
     @Override
-    public void displaySortedStudents() {
+    public void getSortedStudents() {
         students.sort(Comparator.comparing(Student::getName));
         students.forEach(student -> System.out.println(student.toString()));
-        if(students.isEmpty()) System.out.println("No students found.");
+        if (students.isEmpty()) System.out.println("No students found.");
     }
 
     @Override
@@ -51,7 +53,7 @@ public class StudentManager implements StudentManagement {
                 .filter(student -> student.getId() == id)
                 .findFirst().orElse(null);
 
-        if(toBeFound == null) {
+        if (toBeFound == null) {
             System.out.println("No such id.");
             return;
         }
