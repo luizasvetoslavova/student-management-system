@@ -1,4 +1,4 @@
-package org.example;
+package studentManagement;
 
 public class Student {
     private final String name;

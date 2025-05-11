@@ -1,12 +1,14 @@
-package org.example;
+package studentManagement;
+
+import org.example.inputManagement.InputCollector;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class StudentManager implements StudentManagement {
+public class StudentManager implements StudentModification, StudentDisplay {
     private static StudentManager instance;
-    private static final InputManagement inputManagement = InputManager.getInstance();
+    private static final InputCollector inputCollector = InputCollector.getInstance();
     private static List<Student> students;
 
     public static StudentManager getInstance() {
@@ -20,7 +22,7 @@ public class StudentManager implements StudentManagement {
 
     @Override
     public void addNewStudent() {
-        students.add(new Student(inputManagement.getName(), inputManagement.getIdToAdd(), inputManagement.getGrade()));
+        students.add(new Student(inputCollector.getName(), inputCollector.getIdToAdd(), inputCollector.getGrade()));
         System.out.println("New student added!");
     }
 
@@ -39,7 +41,7 @@ public class StudentManager implements StudentManagement {
     }
 
     @Override
-    public void displaySortedStudents() {
+    public void getSortedStudents() {
         students.sort(Comparator.comparing(Student::getName));
         students.forEach(student -> System.out.println(student.toString()));
         if(students.isEmpty()) System.out.println("No students found.");

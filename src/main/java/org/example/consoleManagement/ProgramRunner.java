@@ -1,16 +1,24 @@
-package org.example;
+package org.example.consoleManagement;
+
+import studentManagement.StudentDisplay;
+import studentManagement.StudentModification;
+import org.example.inputManagement.InputCollection;
+import org.example.inputManagement.InputCollector;
 
 import java.util.Scanner;
 
 public class ProgramRunner {
-    private final StudentManagement studentManagement;
-    private final InputManagement inputManagement;
+    private final StudentModification studentModification;
+    private final StudentDisplay studentDisplay;
+    private final InputCollection inputCollection;
     private final Scanner scanner;
 
-    public ProgramRunner(StudentManagement studentManagement, InputManagement inputManagement) {
-        this.studentManagement = studentManagement;
-        this.inputManagement = inputManagement;
-        scanner = InputManager.getScanner();
+    public ProgramRunner(StudentModification studentModification, StudentDisplay studentDisplay,
+                         InputCollection inputCollection) {
+        this.studentModification = studentModification;
+        this.studentDisplay = studentDisplay;
+        this.inputCollection = inputCollection;
+        scanner = InputCollector.getScanner();
     }
 
     public void run() {
@@ -24,16 +32,16 @@ public class ProgramRunner {
     private void manageChoice(String choice) {
         switch (choice) {
             case "1":
-                studentManagement.addNewStudent();
+                studentModification.addNewStudent();
                 break;
             case "2":
-                studentManagement.removeStudent(inputManagement.getIdToRemove());
+                studentModification.removeStudent(inputCollection.getIdToRemove());
                 break;
             case "3":
-                studentManagement.displaySortedStudents();
+                studentDisplay.getSortedStudents();
                 break;
             case "4":
-                studentManagement.getStudentById(inputManagement.getIdToSearch());
+                studentDisplay.getStudentById(inputCollection.getIdToSearch());
                 break;
             default:
                 System.out.println("Invalid choice. Please try again. ");

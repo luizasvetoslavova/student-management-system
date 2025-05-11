@@ -1,6 +1,6 @@
-package org.example;
+package org.example.inputManagement;
 
-public interface InputManagement {
+public interface InputCollection {
     String getName();
     int getIdToAdd();
     int getIdToRemove();

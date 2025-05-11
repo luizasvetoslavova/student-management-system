@@ -1,18 +1,20 @@
-package org.example;
+package org.example.inputManagement;
+
+import studentManagement.StudentManager;
 
 import java.util.Scanner;
 
-public class InputManager implements InputManagement, Validation {
-    private static InputManagement instance;
+public class InputCollector implements InputCollection, InputValidation {
+    private static InputCollector instance;
     private static final StudentManager studentManager = StudentManager.getInstance();
     private static Scanner scanner;
 
-    public static InputManagement getInstance() {
-        if(instance == null) instance = new InputManager();
+    public static InputCollector getInstance() {
+        if(instance == null) instance = new InputCollector();
         return instance;
     }
 
-    private InputManager() {
+    private InputCollector() {
         scanner = new Scanner(System.in);
     }
 
@@ -50,7 +52,7 @@ public class InputManager implements InputManagement, Validation {
 
     @Override
     public int getIdToSearch() {
-        //same logic
+        //same logic, different name for clarity
         return getIdToRemove();
     }
 
