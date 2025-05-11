@@ -49,6 +49,12 @@ public class InputManager implements InputManagement, Validation {
     }
 
     @Override
+    public int getIdToSearch() {
+        //same logic
+        return getIdToRemove();
+    }
+
+    @Override
     public int getGrade() {
         System.out.print("Student grade: ");
         String gradeAsText = scanner.nextLine();

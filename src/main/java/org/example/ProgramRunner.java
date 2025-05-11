@@ -33,7 +33,7 @@ public class ProgramRunner {
                 studentManagement.displaySortedStudents();
                 break;
             case "4":
-                studentManagement.getStudentById(inputManagement.getIdToRemove());
+                studentManagement.getStudentById(inputManagement.getIdToSearch());
                 break;
             default:
                 System.out.println("Invalid choice. Please try again. ");
